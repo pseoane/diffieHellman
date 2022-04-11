@@ -9,7 +9,7 @@ def bothKeysAreEqualTest():
 	sharedKey1 = SKGen.generateSharedKey(publicB, privateA, p)
 	sharedKey2 = SKGen.generateSharedKey(publicA, privateB, p)
 	try:
-		assert(sharedKey2 != sharedKey1)
+		assert(sharedKey2 == sharedKey1)
 		print("bothKeysAreEqualTest - OK")
 		return True
 	except:
