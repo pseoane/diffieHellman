@@ -13,33 +13,42 @@ Select an option:
 
 privateA = -1
 
-def handleOption(option):
+def handleGPOption():
+	(g, p) = GPGen.generateGP()
+	print(f"g: {g}")
+	print(f"p: {p}")	
+
+def handleGenerateAOption():
 	global privateA
+	try:
+		g = int(input("Introduce g: "))
+		p = int(input("Introduce p: "))
+		assert(g < p)
+		(privateA, publicA) = AGen.generateA(g, p)
+		print(f"Public A parameter is {publicA}. Private parameter stored internally")
+	except:
+		print("Invalid parameters. Ensure g < p")
+
+def handleGenerateKeyOption():
+	try: 
+		p = int(input("Introduce p: "))
+		publicB = int(input("Introduce your friend's public A: "))
+	except:
+		print("Invalid parameter")
+		return
+	if privateA == -1:
+		print("Private a parameter not set. Option 2 must be called before generating shared key")
+	else:
+		sharedKey = SKGen.generateSharedKey(publicB, privateA, p)
+		print(f"Shared Key {sharedKey}")
+
+def handleOption(option):
 	if option == 1:
-		(g, p) = GPGen.generateGP()
-		print(f"g: {g}")
-		print(f"p: {p}")
+		handleGPOption()
 	elif option == 2:
-		try:
-			g = int(input("Introduce g: "))
-			p = int(input("Introduce p: "))
-			assert(g < p)
-			(privateA, publicA) = AGen.generateA(g, p)
-			print(f"Public A parameter is {publicA}. Private parameter stored internally")
-		except:
-			print("Invalid parameters. Ensure g < p")
+		handleGenerateAOption()
 	elif option == 3:
-		try: 
-			p = int(input("Introduce p: "))
-			publicB = int(input("Introduce public B: "))
-		except:
-			print("Invalid parameter")
-			return
-		if privateA == -1:
-			print("Private a parameter not set. Option 2 must be called before generating shared key")
-		else:
-			sharedKey = SKGen.generateSharedKey(publicB, privateA, p)
-			print(f"Shared Key {sharedKey}")
+		handleGenerateKeyOption()
 	elif option == 4:
 		return -1
 	else:
