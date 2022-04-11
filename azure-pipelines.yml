@@ -10,5 +10,5 @@ pool:
   vmImage: ubuntu-latest
 steps:
 - script: |
-    python3 test.py
+    python3 code/test.py
   displayName: 'pytest'
