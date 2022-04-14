@@ -1,5 +1,7 @@
+import random
+
 class AGenerator:
 	def generateA(g, p):
-		# ToDo
-		# (private, public)
-		return (14, 19)
+		a = random.randint(1, 100) 
+		A = ((pow(g, a)) % p)
+		return (a, A)
